@@ -117,64 +117,82 @@ class _cartScreenState extends State<cartScreen> {
                 ),
               ),
             ],
-            child: ListTile(
-              leading: Image.network(
-                product['image_url'],
-                fit: BoxFit.cover,
-              ),
-              title: Container(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(product['name']),
-                    Text('\$${product['price'].toStringAsFixed(2)}'),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.remove),
-                          onPressed: () {
-                            if (quantity > 1) {
-                              setState(() {
-                                // Decrease the quantity by 1
-                                productQuantities[productId] = quantity - 1;
-
-                                // Recalculate the total
-                                total = calculateTotalPrice();
-                              });
-                            }
-                          },
-                        ),
-                        Text('$quantity'),
-                        IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () {
-                            setState(() {
-                              // Increase the quantity by 1
-                              productQuantities[productId] = quantity + 1;
-
-                              // Recalculate the total
-                              total = calculateTotalPrice();
-                            });
-                          },
-                        ),
-                      ],
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  const Row(
+                    children: [
+                      Text('Cart',
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.w800)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListTile(
+                    leading: Image.network(
+                      product['image_url'],
+                      fit: BoxFit.cover,
                     ),
-                  ],
-                ),
-              ),
-              trailing: IconButton(
-                icon: Icon(Icons.favorite),
-                onPressed: () {
-                  _showFavourite(isLiked);
-                  if (isLiked) {
-                    widget.selectedProducts.remove(product);
-                  } else {
-                    widget.selectedProducts.add(product);
-                  }
-                  setState(() {});
-                },
-                color: isLiked ? Colors.red : Colors.grey,
+                    title: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(product['name']),
+                          Text('\$${product['price'].toStringAsFixed(2)}'),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.remove),
+                                onPressed: () {
+                                  if (quantity > 1) {
+                                    setState(() {
+                                      // Decrease the quantity by 1
+                                      productQuantities[productId] =
+                                          quantity - 1;
+
+                                      // Recalculate the total
+                                      total = calculateTotalPrice();
+                                    });
+                                  }
+                                },
+                              ),
+                              Text('$quantity'),
+                              IconButton(
+                                icon: Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    // Increase the quantity by 1
+                                    productQuantities[productId] = quantity + 1;
+
+                                    // Recalculate the total
+                                    total = calculateTotalPrice();
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.favorite),
+                      onPressed: () {
+                        _showFavourite(isLiked);
+                        if (isLiked) {
+                          widget.selectedProducts.remove(product);
+                        } else {
+                          widget.selectedProducts.add(product);
+                        }
+                        setState(() {});
+                      },
+                      color: isLiked ? Colors.red : Colors.grey,
+                    ),
+                  ),
+                ],
               ),
             ),
           );

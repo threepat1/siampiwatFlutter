@@ -62,7 +62,7 @@ class _PagesState extends State<Pages> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.favorite),
             label: 'Save',
           ),
           BottomNavigationBarItem(
@@ -76,33 +76,52 @@ class _PagesState extends State<Pages> {
 
   Widget saveScreen() {
     return Scaffold(
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        itemCount: selectedProducts?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          if (selectedProducts == null || selectedProducts.isEmpty) {
-            return Container();
-          }
-          final product = selectedProducts[index];
-          final bool isLiked = selectedProducts.contains(product);
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            const Row(
+              children: [
+                Text('Saved',
+                    style:
+                        TextStyle(fontSize: 32, fontWeight: FontWeight.w800)),
+              ],
+            ),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: selectedProducts?.length ?? 0,
+                itemBuilder: (BuildContext context, int index) {
+                  if (selectedProducts == null || selectedProducts.isEmpty) {
+                    return Container();
+                  }
+                  final product = selectedProducts[index];
+                  final bool isLiked = selectedProducts.contains(product);
 
-          return ProductGridItem(
-            product: product,
-            onAddCart: addToCart,
-            isLiked: isLiked,
-            onLikePressed: () {
-              setState(() {
-                if (isLiked) {
-                  selectedProducts.remove(product);
-                } else {
-                  selectedProducts.add(product);
-                }
-              });
-            },
-          );
-        },
+                  return ProductGridItem(
+                    product: product,
+                    onAddCart: addToCart,
+                    isLiked: isLiked,
+                    onLikePressed: () {
+                      setState(() {
+                        if (isLiked) {
+                          selectedProducts.remove(product);
+                        } else {
+                          selectedProducts.add(product);
+                        }
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,6 +132,9 @@ class _PagesState extends State<Pages> {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
+            SizedBox(
+              height: 20,
+            ),
             const Row(
               children: [
                 Text('For You',

@@ -64,6 +64,12 @@ class _ProductGridItemState extends State<ProductGridItem> {
               builder: (context) => ProductDetailPage(
                 product: widget.product,
                 addToCart: widget.onAddCart,
+                isLiked: widget.isLiked,
+                onToggleLike: () {
+                  setState(() {
+                    widget.onLikePressed();
+                  });
+                },
               ),
             ),
           );

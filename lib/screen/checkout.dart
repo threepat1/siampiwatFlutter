@@ -18,7 +18,10 @@ class CheckoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkout'),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        title: Text('Checkout',
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.w800)),
       ),
       body: Center(
         child: Column(
